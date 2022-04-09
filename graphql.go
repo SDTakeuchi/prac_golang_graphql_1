@@ -3,19 +3,19 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"github.com/graphql-go/graphql"
+	"log"
 )
 
 type Tutorial struct {
-	ID int
-	Title string
-	Author Author
+	ID       int
+	Title    string
+	Author   Author
 	Comments []Comment
 }
 
 type Author struct {
-	Name string
+	Name      string
 	Tutorials []int
 }
 
@@ -26,8 +26,8 @@ type Comment struct {
 func populate() []Tutorial {
 	author := &Author{Name: "Haruki Murakami", Tutorials: []int{1}}
 	tutorial := Tutorial{
-		ID: 1,
-		Title: "Golang GraphQL TUTORIAL",
+		ID:     1,
+		Title:  "Golang GraphQL TUTORIAL",
 		Author: *author,
 		Comments: []Comment{
 			Comment{Body: "such an awesome course!!"},
@@ -99,7 +99,7 @@ func main() {
 
 	fields := graphql.Fields{
 		"tutorial": &graphql.Field{
-			Type: tutorialType,
+			Type:        tutorialType,
 			Description: "Get tutorial by ID",
 			Args: graphql.FieldConfigArgument{
 				"id": &graphql.ArgumentConfig{
@@ -118,8 +118,8 @@ func main() {
 				return nil, nil
 			},
 		},
-		"list": &graphql.Field {
-			Type: graphql.NewList(tutorialType),
+		"list": &graphql.Field{
+			Type:        graphql.NewList(tutorialType),
 			Description: "Get Full Tutorial List",
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				return tutorials, nil
